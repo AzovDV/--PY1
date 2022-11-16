@@ -1,18 +1,10 @@
-import typing
-
 OUTPUT_FILE = "output.csv"
 
 
 def to_csv_file(filename: str, headers: list[str], rows: list[list], delimiter: str = ',', new_line: str = "\n"):
     with open(filename, "wt", encoding="utf-8") as file:
-        write_line_cvs(file, headers, delimiter, new_line)
-        for row in rows:
-            write_line_cvs(file, row, delimiter, new_line)
-
-
-def write_line_cvs(file: typing.IO, elements: list[str], delimiter: str = ',', new_line: str = "\n"):
-    file.writelines(elements[i] + delimiter for i in range(len(elements) - 1))
-    file.write(elements[-1] + new_line)
+        file.writelines(delimiter.join(headers) + new_line)
+        file.writelines(delimiter.join(row) + new_line for row in rows)
 
 
 headers_list = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'median_house_value']
